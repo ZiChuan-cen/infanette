@@ -10,20 +10,20 @@
 void Write_flsh_byte(uint32_t EEPROM_ADD, uint32_t EEPROM_Data)
 {
     //1、解锁FLASH
-	FLASH_Unlock();
+    FLASH_Unlock();
     //2、擦除FLASH
     //初始化FLASH_EraseInitTypeDef
-	
-    FLASH_EraseInitTypeDef f;
-    f.TypeErase = FLASH_TYPEERASE_PAGES;
-    f.PageAddress = EEPROM_ADD;
-    f.NbPages = 1;
-    //设置PageError
-    uint32_t PageError = 0;
+
+//    FLASH_EraseInitTypeDef f;
+//    f.TypeErase = FLASH_TYPEERASE_PAGES;
+//    f.PageAddress = EEPROM_ADD;
+//    f.NbPages = 1;
+//    //设置PageError
+//    uint32_t PageError = 0;
     //调用擦除函数
-    FLASH_ErasePage(&f, &PageError);
+    FLASH_ErasePage(EEPROM_ADD);
     //3、对FLASH烧写
-    FLASH_ProgramWord(FLASH_TYPEPROGRAM_WORD, EEPROM_ADD, EEPROM_Data);
+    FLASH_ProgramWord(EEPROM_ADD, EEPROM_Data);
     FLASH_Lock();
 }
 
